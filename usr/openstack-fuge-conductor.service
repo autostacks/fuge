@@ -1,0 +1,15 @@
+[Unit]
+Description=Openstack Fuge Conductor Service
+After=syslog.target network.target qpidd.service mysqld.service tgtd.service
+
+[Service]
+Type=simple
+User=fuge
+ExecStart=/usr/bin/fuge-conductor
+PrivateTmp=true
+NotifyAccess=all
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

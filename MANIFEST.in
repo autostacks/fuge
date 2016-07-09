@@ -1,0 +1,8 @@
+include scripts/*
+include etc/*
+include usr/*
+include test/*
+exclude .gitignore
+exclude .gitreview
+
+global-exclude *.pyc
