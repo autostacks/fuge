@@ -13,7 +13,7 @@ from fuge.common.i18n import _LI
 from fuge.common import rpc_service
 from fuge.common import service as fuge_service
 from fuge.common import short_id
-from fuge.conductor.handlers import default as default_handler
+from fuge.conductor.handlers import compute as compute_handler
 
 LOG = logging.getLogger(__name__)
 
@@ -28,7 +28,7 @@ def main():
 
     conductor_id = short_id.generate_id()
     endpoints = [
-        default_handler.Handler(),
+        compute_handler.Handler(),
     ]
 
     server = rpc_service.Service.create(cfg.CONF.conductor.topic,

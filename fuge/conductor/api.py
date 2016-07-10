@@ -11,14 +11,17 @@
 #    limitations under the License.
 
 """API for interfacing with Fuge Backend."""
+import logging
 from oslo_config import cfg
 
 from fuge.common import rpc_service
 
 
+LOG = logging.getLogger(__name__)
 # The Backend API class serves as a AMQP client for communicating
 # on a topic exchange specific to the conductors.  This allows the ReST
 # API to trigger operations on the conductors
+
 
 class API(rpc_service.API):
     def __init__(self, transport=None, context=None, topic=None):
@@ -29,5 +32,33 @@ class API(rpc_service.API):
                                   topic=cfg.CONF.conductor.topic)
 
     # NOTE(vivek): Add all APIs here
-    def container_get(self, uuid):
-        return self._call('container_get', uuid=uuid)
+    def container_create(self, container):
+        return self._call('container_create', container=container)
+
+    def container_delete(self, container_uuid):
+        return self._call('container_delete', container_uuid=container_uuid)
+
+    def container_show(self, container_uuid):
+        return self._call('container_show', container_uuid=container_uuid)
+
+    def container_reboot(self, container_uuid):
+        return self._call('container_reboot', container_uuid=container_uuid)
+
+    def container_stop(self, container_uuid):
+        return self._call('container_stop', container_uuid=container_uuid)
+
+    def container_start(self, container_uuid):
+        return self._call('container_start', container_uuid=container_uuid)
+
+    def container_pause(self, container_uuid):
+        return self._call('container_pause', container_uuid=container_uuid)
+
+    def container_unpause(self, container_uuid):
+        return self._call('container_unpause', container_uuid=container_uuid)
+
+    def container_logs(self, container_uuid):
+        return self._call('container_logs', container_uuid=container_uuid)
+
+    def container_exec(self, container_uuid, command):
+        return self._call('container_exec', container_uuid=container_uuid,
+                          command=command)

@@ -112,3 +112,16 @@ def set_ctx(new_ctx):
     if new_ctx:
         setattr(_CTX_STORE, _CTX_KEY, new_ctx)
         setattr(context._request_store, 'context', new_ctx)
+
+def get_admin_context(show_deleted=False):
+    """Create an administrator context."""
+    context = RequestContext(None,
+                             project=None,
+                             is_admin=True,
+                             show_deleted=show_deleted,
+                             overwrite=False)
+    return context
+
+
+def get_current():
+    return context.get_current()

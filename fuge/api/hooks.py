@@ -17,6 +17,7 @@ from oslo_config import cfg
 from pecan import hooks
 
 from fuge.common import context
+from fuge.conductor import api as conductor_api
 
 CONF = cfg.CONF
 CONF.import_opt('auth_uri', 'keystonemiddleware.auth_token',
@@ -71,6 +72,13 @@ class ContextHook(hooks.PecanHook):
             project_domain=project_domain_id,
             roles=roles,
         )
+
+
+class RPCHook(hooks.PecanHook):
+    """Attach the rpcapi object to the request so controllers can get to it."""
+
+    def before(self, state):
+        state.request.rpcapi = conductor_api.API(context=state.request.context)
 
 
 # NOTE(madhuri): Add RPCHook after conductor is implemented.

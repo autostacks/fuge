@@ -15,10 +15,43 @@
 
 # These are the database operations - They are executed by the conductor
 # service.  API calls via AMQP trigger the handlers to be called.
+import logging
+
+
+LOG = logging.getLogger(__name__)
+
 
 class Handler(object):
     def __init__(self):
         super(Handler, self).__init__()
 
-    def container_get(uuid):
+    def container_create(self, context, container):
+        return container
+
+    def container_delete(self, container_uuid):
         pass
+
+    def container_show(self, container_uuid):
+        pass
+
+    def container_reboot(self, container_uuid):
+        pass
+
+    def container_stop(self, container_uuid):
+        pass
+
+    def container_start(self, container_uuid):
+        pass
+
+    def container_pause(self, container_uuid):
+        pass
+
+    def container_unpause(self, container_uuid):
+        pass
+
+    def container_logs(self, container_uuid):
+        return self._call('container_logs', container_uuid=container_uuid)
+
+    def container_exec(self, container_uuid, command):
+        return self._call('container_exec', container_uuid=container_uuid,
+                          command=command)

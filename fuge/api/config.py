@@ -20,6 +20,7 @@ app = {
     'modules': ['fuge'],
     'hooks': [
         hooks.ContextHook(),
+        hooks.RPCHook(),
         hooks.NoExceptionTracebackHook(),
     ],
     'debug': False,

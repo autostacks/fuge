@@ -39,15 +39,6 @@ def _show_container(container):
                 'where unit = b, k, m or g)')
 def do_container_create(cs, args):
     """Create a container."""
-    bay = cs.bays.get(args.bay)
-    if bay.status not in ['CREATE_COMPLETE',
-                          'UPDATE_IN_PROGRESS', 'UPDATE_COMPLETE']:
-        raise exceptions.InvalidAttribute(
-            'Bay status for %s is: %s. We cannot create a %s'
-            ' unless the status is CREATE_COMPLETE, UPDATE_IN_PROGRESS'
-            ' or UPDATE_COMPLETE.' % (bay.uuid, bay.status, "container"))
-        return
-
     opts = {}
     opts['name'] = args.name
     opts['image'] = args.image
